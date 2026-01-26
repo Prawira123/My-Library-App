@@ -48,16 +48,16 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('charts', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('chart_items', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('chart_id')->nullable()->constrained('charts')->onDelete('cascade');
+            $table->foreignId('cart_id')->nullable()->constrained('carts')->onDelete('cascade');
             $table->foreignId('book_id')->nullable()->constrained('books')->onDelete('cascade');
             $table->integer('qty');
             $table->date('tanggal_pinjam');
