@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function borrowings()
     {
-        return $this->hasMany(Borrowing::class);
+        return $this->hasMany(BorrowingItem::class);
     }
 
     public function member()

@@ -17,6 +17,7 @@ class Member extends Model
         'no_anggota',
         'alamat',
         'no_hp',
+        'img_profile',
     ];
 
     public function user(){

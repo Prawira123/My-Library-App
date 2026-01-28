@@ -12,14 +12,15 @@ class BorrowingItem extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'borrowing_id',
         'book_id',
+        'user_id',
         'qty',
         'tanggal_pinjam',
         'tanggal_kembali_rencana',
         'tanggal_kembali_aktual',
         'status',
         'denda',
+        'kode_peminjaman',
     ];
 
     public function book(){
@@ -29,5 +30,9 @@ class BorrowingItem extends Model
     public function borrowing(){
         return $this->belongsTo(Borrowing::class);
     }
-    
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

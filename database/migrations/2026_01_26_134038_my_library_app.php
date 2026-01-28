@@ -25,6 +25,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('nama');
+            $table->string('img_profile');
             $table->integer('no_anggota');
             $table->text('alamat');
             $table->integer('no_hp');
@@ -65,20 +66,13 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        
-        Schema::create('borrowings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->enum('status', ['menunggu', 'dipinjam', 'selesai', 'ditolak', 'telat pengembalian']);
-            $table->timestamps();
-            $table->softDeletes();
-        });
 
         Schema::create('borrowing_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('borrowing_id')->nullable()->constrained('borrowings')->onDelete('cascade');
             $table->foreignId('book_id')->nullable()->constrained('books')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->integer('qty');
+            $table->string('kode_peminjaman');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali_rencana');
             $table->date('tanggal_kembali_aktual')->nullable();
@@ -108,7 +102,6 @@ return new class extends Migration
         Schema::dropIfExists('books');
         Schema::dropIfExists('charts');
         Schema::dropIfExists('chart_items');
-        Schema::dropIfExists('borrowings');
         Schema::dropIfExists('borrowing_items');
         Schema::dropIfExists('archives');
     }
