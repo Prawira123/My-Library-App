@@ -14,6 +14,18 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            boxShadow: {
+                'soft-green': '0 24px 100px 0px rgba(38, 89, 73, 0.35)',
+                'orange-glow': '0 10px 25px rgba(235, 125, 77, 0.35)',
+                'gray': '0 48px 100px 0px rgba(17, 12, 46, 0.35)',
+                'soft-gray': '0 48px 100px 0px rgba(17, 12, 46, 0.15)',
+            },
+            dropShadow: {
+                'soft-green': '0 20px 35px rgba(38, 89, 73, 0.35)',
+                'orange-glow': '0 18px 30px rgba(235, 125, 77, 0.4)',
+                'gray': '0 48px 100px 0px rgba(17, 12, 46, 0.35)',
+                'soft-gray': '0 48px 100px 0px rgba(17, 12, 46, 0.15)',
+            },
         },
     },
 
