@@ -1,41 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Document</title>
-</head>
-<body>
-    <header class="px-20 py-6 w-full bg-white fixed z-50 top-0 left-0">
-        <nav class="flex justify-between w-full items-center">
-            <h1 class="text-[#265949] font-bold text-2xl w-full">My-Library</h1>
-            <div class="w-full">
-                <ul class="flex justify-evenly items-center">
-                    <li><a href="" class="font-medium text-[#1A1A1A]">Home</a></li>
-                    <li><a href="" class="font-medium text-[#1A1A1A]">About Us</a></li>
-                    <li><a href="" class="font-medium text-[#1A1A1A]">Books</a></li>
-                    <li><a href="" class="font-medium text-[#1A1A1A]">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="w-full">
-                <ul class="flex justify-end items-center gap-2">
-                    <li><a href="" class="px-6 py-3 bg-[#eb7d4d] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Login</a></li>
-                    <li><a href="" class="px-6 py-3 bg-[#265949] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Register</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main class="">
-        {{-- //hero section --}}
+@extends('layouts.index')
+
+@section('content')
+     {{-- //hero section --}}
         <div class="relative flex w-full h-[100vh] overflow-hidden" id="hero-section">
             <div class="w-full flex flex-col bg-white justify-center items-start px-20 pt-20 gap-4" id="left-hero">
                 <div class="flex w-full justify-start items-center pr-20">
-                    <p class="text-small text-[#1A1A1A] w-[50%]">Gratis, cepat, dan gak ribet.</p>
-                    <div class="w-full h-[2px] bg-[#ede5d1]"></div>
+                    <p class="text-small text-[#1A1A1A] w-[50%] -mb-8">Gratis, cepat, dan gak ribet.</p>
+                    <div class="w-full h-[2px] bg-[#ede5d1] -mb-8"></div>
                 </div>
-                <h1 class="text-left font-bold text-7xl py-4 text-[#1A1A1A]">Perpustakaan Jadi Lebih <span class="text-[#265949]">Simpel</span>.</h1>
+                <h1 class="text-left font-bold text-7xl py-4 text-[#265949]">Perpustakaan Jadi Lebih <span class="text-[#eb7d4d]">Simpel</span>.</h1>
                 <h3 class="text-left font-small text-xl pb-8 pr-20 text-[#8a8787]">Cari buku, pinjam lebih dari satu, atur tenggat sendiri,
     semua bisa langsung dari satu website.</h3>
                 <a href="" class="text-white font-bold px-10 py-4 bg-[#eb7d4d] rounded-lg  hover:shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000" id="primary-btn">Daftar Sekarang</a>
@@ -122,56 +95,8 @@
                     <a href="" class="px-3 py-3 bg-[#eb7d4d] rounded-full text-white font-bold hover:shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000 text-white"><img src="{{ asset('img/right-arrow (1).png') }}" alt="" class="w-[20px]"></a>
                 </div>
             </div>
-            <div class="flex items-center justify-between w-[80%] gap-5 px-10">
-                <div class=" relative flex flex-col items-center justify-end w-full h-[450px] bg-[#265949] pb-12 px-6 gap-3 rounded-lg shadow-soft-green hover:-translate-y-4 transition ease-in-out duration-1000">
-                    <img src="{{ asset('img/buku1.png') }}" class="w-[80%] h-[250px] object-cover rounded-lg absolute -top-8 left-50" alt="">
-                    <h3 class="text-2xl font-bold text-[#ede5d1]">Physicology Of Money</h3>
-                    <div class="flex items-center justify-between w-full">
-                        <p class="text-[#eb7d4d] font-semibold text-md">By Morgan Houssel</p>
-                        <div class="flex items-center justify-center gap-1">
-                            <h3 class="text-white font-semibold ">4.5</h3>
-                            <img src="{{ asset('img/star.png') }}" class="w-[16px]" alt="">
-                        </div>
-                    </div>
-                    <p class="text-white font-thin text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, nihil.</p>
-
-                    <div class="flex w-[80%] items-center justify-center absolute left-50 -bottom-5">
-                        <a href="" class="flex  w-full bg-[#eb7d4d]  items-center justify-center py-3  text-white font-bold hover:shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000 rounded-full">Pinjam Buku</a>
-                    </div>
-                </div>
-                <div class=" relative flex flex-col items-center justify-end w-full h-[450px] bg-[#265949] pb-12 px-6 gap-3 rounded-lg shadow-soft-green hover:-translate-y-4 transition ease-in-out duration-1000">
-                    <img src="{{ asset('img/buku1.png') }}" class="w-[80%] h-[250px] object-cover rounded-lg absolute -top-8 left-50" alt="">
-                    <h3 class="text-2xl font-bold text-[#ede5d1]">Physicology Of Money</h3>
-                    <div class="flex items-center justify-between w-full">
-                        <p class="text-[#eb7d4d] font-semibold text-md">By Morgan Houssel</p>
-                        <div class="flex items-center justify-center gap-1">
-                            <h3 class="text-white font-semibold ">4.5</h3>
-                            <img src="{{ asset('img/star.png') }}" class="w-[16px]" alt="">
-                        </div>
-                    </div>
-                    <p class="text-white font-thin text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, nihil.</p>
-
-                    <div class="flex w-[80%] items-center justify-center absolute left-50 -bottom-5">
-                        <a href="" class="flex  w-full bg-[#eb7d4d]  items-center justify-center py-3  text-white font-bold hover:shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000 rounded-full">Pinjam Buku</a>
-                    </div>
-                </div>
-                <div class=" relative flex flex-col items-center justify-end w-full h-[450px] bg-[#265949] pb-12 px-6 gap-3 rounded-lg shadow-soft-green hover:-translate-y-4 transition ease-in-out duration-1000">
-                    <img src="{{ asset('img/buku1.png') }}" class="w-[80%] h-[250px] object-cover rounded-lg absolute -top-8 left-50" alt="">
-                    <h3 class="text-2xl font-bold text-[#ede5d1]">Physicology Of Money</h3>
-                    <div class="flex items-center justify-between w-full">
-                        <p class="text-[#eb7d4d] font-semibold text-md">By Morgan Houssel</p>
-                        <div class="flex items-center justify-center gap-1">
-                            <h3 class="text-white font-semibold ">4.5</h3>
-                            <img src="{{ asset('img/star.png') }}" class="w-[16px]" alt="">
-                        </div>
-                    </div>
-                    <p class="text-white font-thin text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, nihil.</p>
-
-                    <div class="flex w-[80%] items-center justify-center absolute left-50 -bottom-5">
-                        <a href="" class="flex  w-full bg-[#eb7d4d]  items-center justify-center py-3  text-white font-bold hover:shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000 rounded-full">Pinjam Buku</a>
-                    </div>
-                </div>
-                
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-[80%]">
+                <x-index.card-book :books="$books"/>
             </div>
         </div>
 
@@ -181,7 +106,7 @@
                 <!-- Heading -->
                 <div class="text-center text-white flex flex-col gap-4">
                     <h1 class="text-5xl font-bold">
-                        Alur Peminjaman Buku
+                        Alur Peminjaman <span class="text-[#265949]">Buku</span>
                     </h1>
                     <p class="font-semibold text-lg text-[#265949]">
                         Ikuti jalurnya, dari daftar sampai buku di tangan.
@@ -199,7 +124,7 @@
 
                         <!-- Step 1 -->
                         <div class="flex flex-col items-center text-center max-w-[180px] text-white">
-                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#eb7d4d] font-bold flex items-center justify-center mb-4">
+                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#fff] font-bold flex items-center justify-center mb-4">
                                 01
                             </div>
                             <h3 class="font-semibold">Daftar Akun</h3>
@@ -210,7 +135,7 @@
 
                         <!-- Step 2 -->
                         <div class="flex flex-col items-center text-center max-w-[180px] text-white">
-                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#eb7d4d] font-bold flex items-center justify-center mb-4">
+                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#fff] font-bold flex items-center justify-center mb-4">
                                 02
                             </div>
                             <h3 class="font-semibold">Cari Buku</h3>
@@ -221,7 +146,7 @@
 
                         <!-- Step 3 -->
                         <div class="flex flex-col items-center text-center max-w-[180px] text-white">
-                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#eb7d4d] font-bold flex items-center justify-center mb-4">
+                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#fff] font-bold flex items-center justify-center mb-4">
                                 03
                             </div>
                             <h3 class="font-semibold">Masuk Keranjang</h3>
@@ -232,7 +157,7 @@
 
                         <!-- Step 4 -->
                         <div class="flex flex-col items-center text-center max-w-[180px] text-white">
-                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#eb7d4d] font-bold flex items-center justify-center mb-4">
+                            <div class="w-14 h-14 rounded-full bg-[#265949] text-[#fff] font-bold flex items-center justify-center mb-4">
                                 04
                             </div>
                             <h3 class="font-semibold">Konfirmasi</h3>
@@ -240,74 +165,17 @@
                                 Admin setujui, buku siap diambil.
                             </p>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div id="cta-section" class=" relative w-full h-full bg-cover bg-center bg-no-repeat ">
             <img src="{{ asset('img/bg-cta2.png') }}" class="drop-shadow-soft-green" alt="">
             <div class="absolute top-1/3 left-50 w-full flex flex-col items-center justify-center gap-10">
-                <h1 class="text-5xl text-[#265949] font-extrabold px-[300px] text-center drop-shadow-soft-green">Siap Bikin Urusan <span class="text-[#eb7d4d]">Buku</span> Jadi Lebih <span class="text-[#eb7d4d]">Mudah</span> ?</h1>
+                <h1 class="text-5xl text-[#265949] font-bold px-[300px] text-center drop-shadow-soft-green">Siap Bikin Urusan <span class="text-[#eb7d4d]">Buku</span> Jadi Lebih <span class="text-[#eb7d4d]">Mudah</span> ?</h1>
                 <h3 class="text-lg text-[#8a8787] font-medium">Gabung sekarang dan rasakan pengalaman perpustakaan yang lebih praktis.</h3>
                 <a href="" class="px-10 py-5 rounded-full bg-[#eb7d4d] text-white font-medium shadow-orange-glow hover:-translate-y-1 transition ease-in-out duration-1000">Daftar Gratis Sekarang</a>
             </div>
         </div>
-    </main>
-
-    <footer class="w-full bg-[#265949] text-white">
-    <div class="max-w-7xl mx-auto px-20 py-16 flex flex-col gap-12">
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
-
-            <div class="flex flex-col gap-4">
-                <h1 class="text-2xl font-bold">My-Library</h1>
-                <p class="text-sm text-white/80 leading-relaxed">
-                    Pinjam buku jadi lebih simpel, cepat, dan tanpa ribet.
-                </p>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-[#eb7d4d]">Menu</h3>
-                <ul class="flex flex-col gap-2 text-sm text-white/80">
-                    <li><a href="#" class="hover:text-white transition">Home</a></li>
-                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition">Books</a></li>
-                    <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-[#eb7d4d]">Explore</h3>
-                <ul class="flex flex-col gap-2 text-sm text-white/80">
-                    <li><a href="#" class="hover:text-white transition">Koleksi Populer</a></li>
-                    <li><a href="#" class="hover:text-white transition">Cara Peminjaman</a></li>
-                    <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-[#eb7d4d]">Follow Us</h3>
-                <ul class="flex flex-col gap-2 text-sm text-white/80">
-                    <li><a href="#" class="hover:text-white transition">Instagram</a></li>
-                    <li><a href="#" class="hover:text-white transition">Twitter</a></li>
-                    <li><a href="#" class="hover:text-white transition">Threads</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="w-full h-px bg-[#eb7d4d]/90"></div>
-
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/70">
-            <p>© 2026 My-Library. All rights reserved.</p>
-            <p>Built for readers, powered by simplicity 📚</p>
-        </div>
-
-    </div>
-</footer>
-
-</body>
-</html>
+@endsection

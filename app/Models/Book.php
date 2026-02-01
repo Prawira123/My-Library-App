@@ -12,7 +12,7 @@ class Book extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title',
+        'judul',
         'penulis',
         'penerbit',
         'rating',
