@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', [IndexController::class, 'index'])->name('home');
+Route::get('/home/books', [IndexController::class, 'book_section'])->name('book_section');
+Route::get('/home/about_us', [IndexController::class, 'about_us'])->name('about_us');
+Route::get('/home/contact_us', [IndexController::class, 'contact_us'])->name('contact_us');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -16,5 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';

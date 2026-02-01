@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string(column: 'judul');
             $table->string('penulis');
             $table->string('penerbit');
-            $table->integer('rating')->nullable();
+            $table->float('rating')->nullable();
             $table->date('tahun_terbit');
             $table->foreignId('kategori_id')->nullable()->constrained('book_categories')->onDelete('cascade');
             $table->text('deskripsi');
