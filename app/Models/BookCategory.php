@@ -15,4 +15,8 @@ class BookCategory extends Model
         'name',
         'deskripsi',
     ];
+
+    public function books(){
+        $this->hasMany(Book::class, 'kategori_id');
+    }
 }
