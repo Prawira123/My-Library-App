@@ -25,7 +25,7 @@ class Book extends Model
     ];
 
     public function category(){
-        return $this->belongsTo(BookCategory::class);
+        return $this->belongsTo(BookCategory::class, 'kategori_id');
     }
 
     public function cart_items(){

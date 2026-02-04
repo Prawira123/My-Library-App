@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use App\Models\BorrowingItem;
+use Illuminate\Support\Facades\Auth;
 
 class BorrowingItemController extends Controller
 {
@@ -13,10 +16,13 @@ class BorrowingItemController extends Controller
      */
     public function index()
     {
-        if(session(role) == 'admin'){
+
+        $user = Auth::user();
+
+        if(session('role') == 'admin'){
             $borrowing_items = BorrowingItem::all();
         }else{
-            $borrowing_items = BorrowingItem::where('user_id', auth()->user()->id)->get();
+            $borrowing_items = BorrowingItem::where('user_id', $user->id)->get();
         }
 
         return redirect()->route('borrowings.index', compact('borrowing_items'));
@@ -26,29 +32,39 @@ class BorrowingItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($book_id)
+    public function create(Request $request, Book $book)
     {
-        $book = Book::find($book_id);
-
-        return view('borrowings.create', compact('book'));
-    }
+        return view('member.borrowing.create', compact('book'));
+    } 
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Book $book)
     {
         $request->validate([
             'tanggal_pinjam' => 'required',
             'tanggal_kembali' => 'required',
-            'qty' => 'required|number|min:1',
+            'qty' => 'required|integer|min:1',
         ]);
 
-        $kode = now().'-'.auth()->user()->id;
+        $user = Auth::user();
+        $kode = now().'-'.$user->id;
+
+        if($request->action == 'borrow'){
+            $this->addToCart($user->id, [
+                'book_id' => $book->id,
+                'qty' => $request->qty,
+                'tanggal_pinjam' => $request->tanggal_pinjam,
+                'tanggal_kembali' => $request->tanggal_kembali
+            ]);
+
+            return redirect()->route('carts.index')->with('success', 'Buku berhasil ditambahkan ke keranjang');
+        }
 
         BorrowingItem::create([
-            'book_id' => $request->book_id,
-            'user_id' => auth()->user()->id,
+            'book_id' => $book->id,
+            'user_id' => $user->id,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'tanggal_kembali_rencana' => $request->tanggal_kembali,
             'tanggal_kembali_aktual' => null,
@@ -58,7 +74,9 @@ class BorrowingItemController extends Controller
             'kode_peminjaman' => $kode,
         ]);
 
-        return redirect()->route('borrowings.index')->with('success', 'Buku berhasil dipinjam');    
+        $this->penguranganStok($book->id, $request->qty);
+
+        return redirect()->route('home')->with('success', 'Buku berhasil dipinjam');    
     }
 
     /**
@@ -66,26 +84,32 @@ class BorrowingItemController extends Controller
      */
     public function show(string $id, $book_id)
     {
+
+        $user = Auth::user();
+
         $book = Book::find($book_id);
-        $borrowing = BorrowingItem::find($id);
+
+        $borrowing = BorrowingItem::find($id)
+        ->where('user_id', $user->id)
+        ->first();
 
         return redirect()->route('borrowings.show', compact('borrowing'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id, $book_id)
     {   
+        
+        $user = Auth::user();
+
         $book = Book::find($book_id);
-        $borrowing = BorrowingItem::find($id);
+
+        $borrowing = BorrowingItem::find($id)
+        ->where('user_id', $user->id)
+        ->first();
 
         return view('borrowings.edit', compact('borrowing'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $borrowing = BorrowingItem::find($id);
@@ -93,14 +117,18 @@ class BorrowingItemController extends Controller
         $request->validate([
             'tanggal_pinjam' => 'required',
             'tanggal_kembali' => 'required',
-            'qty' => 'required|number|min:1',
+            'qty' => 'required|integer|min:1',
         ]);
 
-        $kode = now().'-'.auth()->user()->id;
+        $user = Auth::user();
+
+        $kode = now().'-'.$user->id;
+
+        $book = Book::find($borrowing->book_id);
+
+        $this->pengembalianStock($book->id, $borrowing->qty);
 
         $borrowing->update([
-            'book_id' => $request->book_id,
-            'user_id' => auth()->user()->id,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'tanggal_kembali_rencana' => $request->tanggal_kembali,
             'tanggal_kembali_aktual' => null,
@@ -109,6 +137,8 @@ class BorrowingItemController extends Controller
             'denda' => null,
             'kode_peminjaman' => $kode,
         ]);
+
+        $this->penguranganStok($book->id, $request->qty);
 
         return redirect()->route('borrowings.index')->with('success', 'Buku berhasil dipinjam');
     }
@@ -123,5 +153,39 @@ class BorrowingItemController extends Controller
         $borowing->delete();
 
         return redirect()->route('borrowings.index')->with('success', 'Buku berhasil dikembalikan');
+    }
+
+    private function penguranganStok($book_id, $stok_masuk){
+        $book = Book::find($book_id);
+
+        $book->stok -= $stok_masuk;
+        $book->save();
+
+        return $book->stok;
+    }
+
+    private function pengembalianStock($book_id, $qty){
+        $book = Book::find($book_id);
+
+        $book->stok += $qty;
+        $book->save();
+
+        return $book->stok;
+    }
+
+    private function addToCart($user_id, $data = []){
+        $cart = Cart::create([
+            'user_id' => $user_id,
+        ]);
+
+        foreach($data as $item){
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'book_id' => $item['book_id'],
+                'qty' => $item['qty'],
+                'tanggal_pinjam' => $item['tanggal_pinjam'],
+                'tanggal_kembali' => $item['tanggal_kembali'],
+            ]);
+        }
     }
 }
