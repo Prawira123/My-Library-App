@@ -23,25 +23,50 @@
     </style>
 </head>
 <body>
-    <header class="px-20 py-6 w-full bg-white fixed z-50 top-0 left-0">
-        <nav class="flex justify-between w-full items-center">
-            <h1 class="text-[#265949] font-bold text-2xl w-full">My-Library</h1>
-            <div class="w-full">
-                <ul class="flex justify-evenly items-center">
-                    <li><a href="{{ route('home') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('about_us') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('about_us') ? 'active' : '' }}">About Us</a></li>
-                    <li><a href="{{ route('book_section') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('book_section') ? 'active' : '' }}">Books</a></li>
-                    <li><a href="{{ route('contact_us') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('contact_us') ? 'active' : '' }}">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="w-full">
-                <ul class="flex justify-end items-center gap-2">
-                    <li><a href="" class="px-6 py-3 bg-[#eb7d4d] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Login</a></li>
-                    <li><a href="" class="px-6 py-3 bg-[#265949] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Register</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    @if (session('role') == 'member')   
+        <header class="px-20 py-3 w-full bg-white fixed z-50 top-0 left-0">
+            <nav class="flex justify-between w-full items-center">
+                <h1 class="text-[#265949] font-bold text-2xl w-full">My-Library</h1>
+                <div class="w-full">
+                    <ul class="flex justify-evenly items-center">
+                        <li><a href="{{ route('home_member') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('home_member') ? 'active' : '' }}">Home</a></li>
+                        <li><a href="{{ route('book_section') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('book_section') ? 'active' : '' }}">Books</a></li>
+                        <li><a href="{{ route('book_section') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('book_section') ? 'active' : '' }}">History</a></li>
+                        <li><a href="{{ route('profiles.index') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('profiles*') ? 'active' : '' }}">Profile</a></li>
+                    </ul>
+                </div>
+                <div class="w-full">
+                    <ul class="flex justify-end items-center gap-4">
+                        <a href=""><img src="{{ asset('img/about.png') }}" alt="" class="w-[60px] h-[60px] rounded-full shadow-soft-green"></a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <li><button type="submit" class="px-4 py-2 bg-[#265949] rounded-lg text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Log Out</button></li>
+                        </form>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    @elseif(session('role') == null )
+        <header class="px-20 py-6 w-full bg-white fixed z-50 top-0 left-0">
+                <nav class="flex justify-between w-full items-center">
+                    <h1 class="text-[#265949] font-bold text-2xl w-full">My-Library</h1>
+                    <div class="w-full">
+                        <ul class="flex justify-evenly items-center">
+                            <li><a href="{{ route('home') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
+                            <li><a href="{{ route('about_us') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('about_us') ? 'active' : '' }}">About Us</a></li>
+                            <li><a href="{{ route('book_section') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('book_section') ? 'active' : '' }}">Books</a></li>
+                            <li><a href="{{ route('contact_us') }}" class="font-medium text-[#1A1A1A] hover:text-[#eb7d4d] transition all ease-in-out duration-500 {{ request()->routeIs('contact_us') ? 'active' : '' }}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full">
+                        <ul class="flex justify-end items-center gap-2">
+                            <li><a href="{{ route('login') }}" class="px-6 py-3 bg-[#eb7d4d] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Login</a></li>
+                            <li><a href="{{ route('register') }}" class="px-6 py-3 bg-[#265949] rounded-md text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Register</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+        @endif
     <main class="">
         @yield('content')
     </main>
