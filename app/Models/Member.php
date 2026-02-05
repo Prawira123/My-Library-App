@@ -18,6 +18,7 @@ class Member extends Model
         'alamat',
         'no_hp',
         'img_profile',
+        'bg_img',
     ];
 
     public function user(){
