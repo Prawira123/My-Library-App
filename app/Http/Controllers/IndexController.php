@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\BookCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -15,7 +16,7 @@ class IndexController extends Controller
         ->orderBy('rating', 'desc')
         ->paginate(3);
 
-        return view('guest.index', compact('books'));
+        return view('guest.index', compact('books', ));
     }
 
     public function book_section(){
