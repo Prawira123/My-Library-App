@@ -37,7 +37,7 @@
                 </div>
                 <div class="w-full">
                     <ul class="flex justify-end items-center gap-4">
-                        <a href=""><img src="{{ asset('img/about.png') }}" alt="" class="w-[60px] h-[60px] rounded-full shadow-soft-green"></a>
+                        <a href="{{ route('profiles.index') }}"><img src="{{ asset('img_member_upload/'.$user->img_profile) }}" alt="" class="w-[60px] h-[60px] rounded-full shadow-soft-green"></a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <li><button type="submit" class="px-4 py-2 bg-[#265949] rounded-lg text-white font-medium hover:opacity-80 transaition ease-in-out duration-150">Log Out</button></li>

@@ -25,10 +25,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('nama');
-            $table->string('img_profile');
-            $table->integer('no_anggota');
-            $table->text('alamat');
-            $table->integer('no_hp');
+            $table->string('img_profile')->nullable();
+            $table->integer('no_anggota')->nullable();
+            $table->text('alamat')->nullable();
+            $table->integer('no_hp')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Member;
 
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Member;
 use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -17,7 +19,11 @@ class IndexController extends Controller
         ->orderBy('rating', 'desc')
         ->paginate(3);
 
-        return view('member.index', compact('books'));
+        $user_id = Auth::user()->id;
+        $user = Member::where('user_id', $user_id)->first();
+
+
+        return view('member.index', compact('books', 'user'));
     }
 
     public function book_section(){
