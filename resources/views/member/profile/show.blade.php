@@ -172,6 +172,7 @@
                         @error('img_profile')
                             <small class="text-red-500">{{ $message }}</small>
                         @enderror
+                        <img src="{{ asset('img_member_upload/'.$user->img_profile) }}" alt="" class="w-32 h-32 object-cover object-center mt-2" onerror="this.onerror=null;this.src='{{ asset('img_member_upload/no_img.png') }}'">
                     </div>
                     <div class="md:col-span-2">
                         <button type="submit" class="px-10 py-3 bg-[#eb7d4d] text-white font-bold rounded-full
